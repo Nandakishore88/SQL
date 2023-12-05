@@ -1,9 +1,13 @@
+#CHAR(SIZE)  - ONLY LETTERS
 #VARCHAR(SIZE) - VARIABLE LENGTH STRING (Letter,number,special characters)
 #INT - INTEGER
 #FLOAT(size,d) - Floating Point Number
 #DOUBLE(Size.d) - Floatin Point Number(Large Number)
 #BOOLEAN - TRUE(NONZERO) or FALSE(ZERO)
 #DATE - Date(YYYY-MM-DD)
+#CLOB - CHARACTER LARGE OBJECT.TO STORE LARGE CHARACTER SINCE VARCHAR2 LIMITED TO 4000 BYTES.
+#BLOB - BINARY LARGE OBJECT TO STORE BINARY DATA LIKE PICTURES & VIDEOS.
+#COMPARISON OPERATOR      = , <> , < , > , <= , >=
 
 CREATE DATABASE db1;
 CREATE DATABASE db2;
@@ -49,8 +53,6 @@ DELETE FROM student1
 WHERE student_id = 's2';
 SELECT * FROM student1;
 
-SELECT student_id,student_name FROM student;
-
 SELECT * FROM student
 WHERE place = 'knr';
 SELECT * FROM student
@@ -66,7 +68,7 @@ FROM student;
 SELECT * FROM student
 ORDER BY student_name ASC;
 SELECT * FROM student
-ORDER BY age DESC;
+ORDER BY age DESC; # If nothing is given then ASC will choose.
 
 ALTER TABLE student
 ADD contact INT(10) NOT NULL;
@@ -75,15 +77,15 @@ ALTER TABLE student
 MODIFY contact VARCHAR(10) NOT NULL;
 ALTER TABLE student
 RENAME COLUMN contact TO student_contact;
+#ALTER TABLE STUDENT RENAME TO NEW_STUDENT;
 ALTER TABLE student
 DROP COLUMN student_contact;
-SELECT * FROM student;
-
-TRUNCATE student1;# TRUNCATE TABLE student1;TO EMPTY THE TABLE.
-SELECT * FROM student1;
+#DROP DATABASE DB1;
 DROP TABLE STUDENT1;#TO DELETE ENTIRE TABLE
 #When you use DROP, the table and all its data permanently deleted.It's a DDL.
 #When you use DELETE, the rows specified by the WHERE clause are deleted from the table, but the table itself and its structure remain intact.
+TRUNCATE student1;# TRUNCATE TABLE student1;TO EMPTY THE TABLE.
+
 
 USE db1;
 SELECT * FROM student
@@ -91,7 +93,7 @@ ORDER BY student_id ASC
 LIMIT 2;
 SELECT * FROM student
 ORDER BY student_name DESC
-LIMIT 1;
+LIMIT 2,1;#IGNORES FIRST 2 AND SHOW 3RD.
 
 SELECT * FROM student
 ORDER BY rand()
@@ -107,7 +109,6 @@ FROM student;
  
  #COMPARISON OPERATORS#
  SELECT 10 = 10 AS RESULT;
- SELECT 51 = 55 AS result;
  SELECT 55 >= 54 AS result;
  SELECT 88 <= 82 AS result;
  SELECT 77 <> 76 AS result;#NOT EQUAL TO
@@ -126,14 +127,17 @@ FROM student;
  SELECT * FROM student
  WHERE age BETWEEN 22 AND 30;
  SELECT * FROM student
- WHERE EXISTS (SELECT age FROM student WHERE age > 25);
- SELECT * FROM student
  WHERE place IN ('KNR','TVM');
  SELECT * FROM student
  WHERE student_name LIKE 'geetha';
  SELECT * FROM student
  WHERE student_name LIKE '%a%';#SIMILLARLY "%D","S%", NOT LIKE "HAP%" ETC.
  # "WHERE age NOT LIKE 29 OR 20;" WILL NOT WORK,FOR NUMBERS ARITHMATIC OPERATORS NEEDED.
+ 
+ /*SELECT INSTR('CODING GLITZ','I') FROM dual;   Ans= 4 since 'I' is in 4th place.
+ SELECT SUBSTR('BIPLAB',2,3) FROM dual;    Here 2 is starting and 3 is length = IPL is Ans.
+ SELECT SUBSTR('INDIAN',4) FROM dual;     Ans = IAN
+ */
 
 #CHARACTER LENTH
 SELECT * FROM student;
@@ -143,17 +147,14 @@ SELECT * FROM student;
 SELECT concat(student_name, '  ' ,place) AS stud_place
 FROM student; 
 
-#FORMAT# 
 SELECT format(2565.45865, 2) AS rounded;
-
-#INSERT#
 SELECT insert('google',1,1,'t');
 SELECT insert('windows',1,3,'ddd');
 SELECT upper('helllo world') AS new_str;
 SELECT reverse('SQL') ;
 SELECT repeat('hai',5) AS p;
 SELECT left('good vibe',6) ;
-SELECT length('fu');
+SELECT length('amt');
 
 /* MATHEMATICAL FUNCTIONS*/
 SELECT abs(-566);
@@ -167,7 +168,7 @@ SELECT MAX(age) FROM student;
 SELECT MIN(age) from student;
 SELECT pi();
 SELECT rand() ;
-SELECT rand()*11;#GIVES NO. BETWEEN 1 TO 10
+SELECT rand()*11;#GIVES NO. FROM 1 TO 10
 SELECT floor(rand()*5);# gives decimal no. 
 SELECT sqrt(6);
 SELECT SUM(age) FROM student;
@@ -178,7 +179,7 @@ SELECT day('2008/6/5');
 SELECT month('2008/4/6');
 SELECT dayname('2008/6/15');
 SELECT sysdate();
-SELECT curdate();
+SELECT curdate();  
 SELECT now();
 
 
@@ -301,10 +302,6 @@ FROM student;
 SELECT ifnull(null,'hello') AS result; #result is hello
 SELECT ifnull(2,'hello') AS result; #result will be 2
 
-USE db2;
-SELECT *  FROM country LEFT JOIN capital #LEFT JOIN OR LEFT OUTER JOIN
-ON country.country_code = capital.country_code;
-
 /*CASE FUNCTION*/
 USE db2;
 SELECT country_name,
@@ -316,4 +313,3 @@ CASE
     ELSE 'Bengali'
 END AS Official_lang
 FROM country;
-SELECT
